@@ -2,7 +2,7 @@ import { verifyToken } from "../utils/jwt.js";
 
 function authorize(req, res, next) {
 
-    const token = req.cookies.AuthToken;
+    const token = req.cookies.token;
 
     if(!token) {
         res.status(400).json({

@@ -9,7 +9,7 @@ function deleteCategoryHandler(req,res){
                     .then((category) => {
                         if (category) {
                             res.status(200).json({
-                                message: 'Category Deleted Successfully',
+                                message: `${JSON.parse(category)} Deleted Successfully`,
                             });
                         }
                         res.status(404).json({

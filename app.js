@@ -13,7 +13,12 @@ mongoose.connect(process.env.DEV_DB,{
     useUnifiedTopology: true,
     dbName: 'fastbills'
   })
-  .then(() => console.log('Connected!'));
+  .then(() => {
+    console.log('Connected! to the database')
+    server.listen(8080, () => {
+        console.log("server started");
+    })
+});
 
 const server = express();
 server.use(express.json());
@@ -30,6 +35,3 @@ server.get('/sayhello', function(req, res) {
     });
 });
 
-server.listen(8080, () => {
-    console.log("server started");
-})

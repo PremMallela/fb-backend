@@ -1,5 +1,5 @@
 import express from 'express';
-import getCategoryHandler from '../handlers/getCategoryHandler.js';
+import getCategoryHandler from '../handlers/getCategoriesHandler.js';
 import createCategoryHandler from '../handlers/createCategoryHandler.js';
 import authorize from '../middleware/authorize.js';
 import deleteCategoryHandler from '../handlers/deleteCategoryHandler.js';
