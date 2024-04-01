@@ -1,8 +1,8 @@
-import Category from "../data-model/CategoryModel.js";
+import Category from "../../data-model/CategoryModel.js"
 
 function getCategoriesHandler(req, res) {
 
-    const userDetails = req.userDetails;
+    const userDetails = req.userDetails
 
     Category.find({
         user_id:userDetails.id
@@ -10,16 +10,16 @@ function getCategoriesHandler(req, res) {
     .then(categories => {
         res.status(200).json(
             categories
-        );
+        )
     })
     .catch(error => {
         res.status(500).json({
             error:{
                 message:"Internal Server Error"
             }
-        });
+        })
     })
 
 }
 
-export default getCategoriesHandler;
+export default getCategoriesHandler

@@ -1,15 +1,28 @@
-import express from 'express';
-import getCategoryHandler from '../handlers/getCategoriesHandler.js';
-import createCategoryHandler from '../handlers/createCategoryHandler.js';
-import authorize from '../middleware/authorize.js';
-import deleteCategoryHandler from '../handlers/deleteCategoryHandler.js';
+import express from 'express'
+import authorize from '../middleware/authorize.js'
+import getCategoryHandler from '../handlers/categoryHandlers/getCategoriesHandler.js'
+import createCategoryHandler from '../handlers/categoryHandlers/createCategoryHandler.js'
+import  updateCategoryHandler from '../handlers/categoryHandlers/updateCategoryHandler.js'
+import deleteCategoryHandler from '../handlers/categoryHandlers/deleteCategoryHandler.js'
+import getTagHandlers from '../handlers/tagHandlers/getTagHandlers.js'
+import createTagHandler  from '../handlers/tagHandlers/createTagHandler.js'
 
-const productRouter = express.Router();
+export const categoryRouter = express.Router()
 
-productRouter.use(authorize);
+categoryRouter.use(authorize)
 
-productRouter.get('/categories', getCategoryHandler);
-productRouter.post('/categories', createCategoryHandler);
-productRouter.delete('/categories',deleteCategoryHandler);
+categoryRouter.post('/categories', createCategoryHandler)
+categoryRouter.get('/categories', getCategoryHandler)
+categoryRouter.patch('/categories', updateCategoryHandler)
+categoryRouter.delete('/categories',deleteCategoryHandler)
 
-export default productRouter;
+export const tagRouter = express.Router()
+
+tagRouter.use(authorize)
+
+tagRouter.post('/tags', createTagHandler)
+// tagRouter.get('/tags', getTagHandlers)
+// tagRouter.patch('/tags', updateTagHandler)
+// tagRouter.delete('/tags',deleteTagHandler)
+
+
