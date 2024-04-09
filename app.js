@@ -9,6 +9,8 @@ import tagRouter from "./routes/tagRouter.js"
 import outletRouter from "./routes/oultetRouter.js"
 import path from  "path"
 
+import cors from 'cors';
+
 
 mongoose.connect(process.env.DEV_DB,{
     useNewUrlParser: true,
@@ -30,6 +32,10 @@ const server = express()
 server.use(express.json())
 server.use(cookieParser())
 server.use('/assets/uploads',express.static(path.join(path.resolve(),'./assets/uploads')))
+server.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true
+}));
 
 
 server.use('/auth',authRouter)
