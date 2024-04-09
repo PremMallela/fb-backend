@@ -1,5 +1,5 @@
 import Category from "../../data-model/CategoryModel.js"
-import { isValidName } from "../../utils/validations.js"
+import { isValidName } from "../../utils/validators.js"
 
 function createCategoryHandler(req,res) {
 
@@ -11,7 +11,7 @@ function createCategoryHandler(req,res) {
     if(!categoryDetails || !categoryName || !userDetails || !userDetails.id || !isValidName(categoryName)){
         res.status(400)
             .json({
-                    message:"Payload is either not defined or invalid"
+                    message:"CategoryName is either not defined or invalid"
             })
       }
 
@@ -20,18 +20,16 @@ function createCategoryHandler(req,res) {
     const category = new Category(categoryDetails)
 
     category.save()
-        .then(savedCategory => {
-            res.status(200).json({
-                created:true
+            .then(savedCategory => {
+                res.status(201).json({
+                    message : `Category '${savedCategory.name}' has been created`
+                })
             })
-        })
-        .catch(error => {
-            res.status(500).json({
-                error:{
-                    message:"Internal Server Error"
-                }
+            .catch(error => {
+                res.status(500).json({
+                     error :error.message || "Internal server error"
+                })
             })
-        })
 
 }
 

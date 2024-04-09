@@ -1,6 +1,6 @@
 import User from  '../../data-model/UserModel.js'
-import { isValidMobileNumber } from '../../utils/validations.js'
-import { isValidName } from '../../utils/validations.js'
+import { isValidMobileNumber } from '../../utils/validators.js'
+import { isValidName } from '../../utils/validators.js'
 
 export default function updateUserHandler(req,res){
     const userDetails= req.userDetails

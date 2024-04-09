@@ -1,10 +1,12 @@
 import Category from "../../data-model/CategoryModel.js"
 
 function updateCategoryHandler(req, res){
-        // const userBody = req.userDetails
-        const categoryBody =  req.body
+
+        const categoryId =  req.params.categoryId
+        const categoryBody = req.body
         const updateCategoryBody = {}
-        if(!categoryBody) {
+        
+        if(!categoryId) {
                 res.status(400).json({
                         message : "No data provided for update"
                 })
@@ -14,13 +16,23 @@ function updateCategoryHandler(req, res){
                 updateCategoryBody.name = categoryBody.name
         }
         
-        Category.findOneAndUpdate({_id : categoryBody.id },updateCategoryBody).exec()
-                .then((category)=>{
-                        res.status(201).json(category)
+        Category.findOneAndUpdate({_id : categoryId },updateCategoryBody).exec()
+                .then((originalCategory)=>{
+                        if(originalCategory){
+                            res.status(201).json({
+                                   message :`Updated this ${originalCategory}`
+                                })
+                        }
+                        else {
+                            res.status(404).json({
+                                 message: 'Category not found' 
+                                })
+                        }
+                        
                 })
                 .catch((error)=>{
-                        res.json({
-                                error :error.message
+                        res.status(500).json({
+                                error :error.message || "Internal server error"
                         })
                 })
 }

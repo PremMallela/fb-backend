@@ -1,27 +1,29 @@
-import Category from "../../data-model/CategoryModel.js"
+import Tag from "../../data-model/TagModel.js"
 
-function getCategoriesHandler(req, res) {
+function getTagsHandler(req, res) {
 
     const userDetails = req.userDetails
 
-    Category.find({user_id:userDetails.id}).exec()
-            .then(categories => {
-                if(categories){
+    Tag.find({user_id:userDetails.id}).exec()
+            .then(Tags => {
+                if(Tags){
                     res.status(200).json(
-                        categories
+                        Tags
                     )
                 }
                 else {
                     res.status(404).json({
-                        message: "No Categories found in this users' account"
+                        message: "No Tags found in this users' account"
                     })
                 }
+                
             })
             .catch((error) => {
                 res.status(500).json({
                     error:error.message ||"Internal Server Error"
                 })
             })
+
 }
 
-export default getCategoriesHandler
+export default getTagsHandler

@@ -1,6 +1,6 @@
 import User from "../data-model/UserModel.js"
 import { signToken } from "../utils/jwt.js"
-import { isValidMobileNumber } from "../utils/validations.js"
+import { isValidMobileNumber } from "../utils/validators.js"
 
 function loginHandler(req, res) {
 

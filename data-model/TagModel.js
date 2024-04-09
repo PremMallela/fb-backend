@@ -19,7 +19,7 @@ const tagSchema = new mongoose.Schema(
           ref: 'User',
           required: true
         }
-    }, { collection: 'categories' })
+    }, { collection: 'tags' })
 
 const Tag = new mongoose.model( "Tag", tagSchema ) 
 

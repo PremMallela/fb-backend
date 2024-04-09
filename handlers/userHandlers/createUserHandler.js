@@ -1,5 +1,5 @@
 import User from "../../data-model/UserModel.js"
-import { isValidMobileNumber, isValidName } from "../../utils/validations.js"
+import { isValidMobileNumber, isValidName } from "../../utils/validators.js"
 
  function createUserHandler(req, res) {
 
