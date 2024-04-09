@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 
 const userSchema = new mongoose.Schema({
     mobile: {
@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
       unique: true,
       validate: {
         validator: function(v) {
-          return /^[0-9]{10}$/.test(v);
+          return /^[0-9]{10}$/.test(v)
         },
         message: props => `${props.value} is not a valid 10 digit mobile number!`
       }
@@ -22,8 +22,8 @@ const userSchema = new mongoose.Schema({
       required: true,
       minlength: 1
     }
-  }, { collection: 'users' });
+  }, { collection: 'users' })
   
-  const User = mongoose.model('User', userSchema);
+  const User = mongoose.model('User', userSchema)
   
-  export default User;
+  export default User
