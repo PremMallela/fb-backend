@@ -19,9 +19,10 @@ function updateCategoryHandler(req, res){
         Category.findOneAndUpdate({_id : categoryId },updateCategoryBody).exec()
                 .then((originalCategory)=>{
                         if(originalCategory){
-                            res.status(201).json({
-                                   message :`Updated this ${originalCategory}`
-                                })
+                                res.status(201).json({
+                                    message :`Updated the below category`,
+                                    product :originalCategory
+                                  })
                         }
                         else {
                             res.status(404).json({

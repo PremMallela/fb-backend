@@ -20,12 +20,13 @@ function updateOutletHandler(req, res){
                 updateOutletBody.location = outletBody.location
         }
 
-    Outlet.findOneAndUpdate({_id : outletId },updateTagBody).exec()
+    Outlet.findOneAndUpdate({_id : outletId },updateOutletBody).exec()
                 .then((originalOutlet)=>{
                         if(originalOutlet){
-                            res.status(201).json({
-                                message :`Updated this ${originalOutlet}`
-                              })
+                                res.status(201).json({
+                                    message :`Updated the below Outlet`,
+                                    product : originalOutlet
+                                  })
                         }
                         else {
                             res.status(404).json({

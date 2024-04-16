@@ -19,9 +19,10 @@ function updateTagHandler(req, res){
         Tag.findOneAndUpdate({_id : tagId },updateTagBody).exec()
                 .then((originalTag)=>{
                         if(originalTag){
-                            res.status(201).json({
-                                message :`Updated this ${originalTag}`
-                              })
+                                res.status(201).json({
+                                    message :`Updated the below Tag`,
+                                    product :originalTag
+                                  })
                         }
                         else {
                             res.status(404).json({

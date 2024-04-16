@@ -16,6 +16,6 @@ console.log(__uploadDir)
 )
 
 const upload = multer({storage : storage})
-const uploadFile = upload.single('logo')
+const uploadFile = upload.single('image')
 
 export default uploadFile
