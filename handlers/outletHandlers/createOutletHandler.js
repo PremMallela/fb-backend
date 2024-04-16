@@ -2,6 +2,7 @@ import Outlet from "../../data-model/OutletModel.js"
 import { isValidName } from "../../utils/validators.js"
 
 function createOutletHandler(req,res){
+
     const outletDetails = req.body
     const userId = req.userDetails.id
     const fileData = req.file
@@ -12,6 +13,8 @@ function createOutletHandler(req,res){
                 message:"Please provide required Outlet details."
             })
     }
+    console.log("\n"+ outletDetails.name+"\n")
+
     if(!outletDetails.name || !isValidName(outletDetails.name)){
         res.status(400)
             .json({
@@ -38,11 +41,11 @@ function createOutletHandler(req,res){
     const outlet = new Outlet(outletDetails)
 
     outlet.save()
-            .then(()=>{
+            .then((savedOutlet)=>{
                 res.status(201)
                 .json({
                     message :`created`,
-                    outlet
+                    savedOutlet
                 })
             })
             .catch(error => {
