@@ -33,7 +33,7 @@ server.use(express.urlencoded({ extended: true }))
 server.use(cookieParser())
 server.use('/assets/uploads',express.static(path.join(path.resolve(),'./assets/uploads')))
 server.use(cors({
-  origin: 'http://localhost:5173',
+  origin: process.env.ORIGIN,
   credentials: true
 }));
 
