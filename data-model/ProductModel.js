@@ -9,38 +9,36 @@ const productSchema = new mongoose.Schema({
         validator: function(v) {
             return /\S/.test(v);
         },
-        message: 'Username cannot contain only whitespace'
+        message: 'Product cannot contain only whitespace'
       }
     },
     description: {
-        type: String,
-        required: true
+        type: String
     },
-    categoryId: {
+    category: {
         type: Schema.Types.ObjectId,
         ref: 'Category', 
         required: true
     },
-    
-    tagIds: [{
+    tags: [{
         type: Schema.Types.ObjectId,
-        ref: 'Tag' 
+        ref: 'Tag',
+        required: true,
+        default: []
     }],
-
-    uom: {
+    UOM: {
         type: String,
+        required: true,
+        enum: ['number', 'kilogram', 'milligram', 'litre'],
+        default: 'number'
+    },
+    PPU: {
+        type: Number,
         required: true
     },
-
-    ppu: {
-        type: String,
-        required: true
-    },
-
-    imagePath: [{
+    images: [{
         type: String
     }],
-    
     user_id: {
         type: Schema.Types.ObjectId,
         ref: 'User',

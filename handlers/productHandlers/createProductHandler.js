@@ -3,70 +3,63 @@ import { isValidName } from "../../utils/validators.js"
 
 function createProductHandler(req,res){
 
-    const productDetails = req.body
-    const userDetails = req.userDetails
-    const fileData = req.file    
+    if(!req.body.product) {
+        res.status(400)
+            .json({
+                    message: "Inavlid body"
+            })
+        return;
+    }
+
+    const productDetails = JSON.parse(req.body.product);
+    const images = req.files
+    const userDetails = req.userDetails    
     
     if(!userDetails || !userDetails.id ){
         res.status(400)
             .json({
                     message: "User is not Logged in"
             })
+        return;
     }
-    else if(!productDetails.name ||  !isValidName(productDetails.name)){
+
+    if(!productDetails.name ||  !isValidName(productDetails.name)){
         res.status(400)
             .json({
                     message:"ProductName is either not defined or invalid"
             })
-    }
-
-    if(!productDetails.description || !isValidName(productDetails.description)){
-        res.status(400)
-            .json({
-                    message:"ProductDescription is either not defined or invalid"
-            })
+        return;
     }
     
-    if(!productDetails.categoryId ){
+    if(!productDetails.category ){
         res.status(400)
             .json({
                     message:"Product's CategoryId is either not defined or invalid"
             })
+        return;
     }
 
-    if( !productDetails.tagIds ){
-        res.status(400)
-            .json({
-                    message:"Product's TagIds were either not defined or invalid"
-            })
-    }
-
-    if( !productDetails.uom ){
+    if( !productDetails.UOM ){
         res.status(400)
             .json({
                     message:"Product's Unit of measurement(uom) is either not defined or invalid"
             })
+        return;
     }
 
-    if( !productDetails.ppu ){
+    if( !productDetails.PPU ){
         res.status(400)
             .json({
                     message:"Product's Price per Unit (ppu) is either not defined or invalid"
             })
-    }
-
-    if(!fileData){
-        res.status(422)
-            .json({
-                message :"No Logo-Image Provided"
-            })
+        return;
     }
         
     productDetails.user_id = userDetails.id
-    productDetails.imagePath =  `http://localhost:8080/assets/uploads/${fileData.filename}`
-    
-
-    productDetails.user_id = userDetails.id
+    productDetails.images = [];
+    images.map(image => {
+        productDetails.images.push(image.filename);
+    })
 
     const product = new Product(productDetails)
 

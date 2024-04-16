@@ -3,17 +3,22 @@ import Product from "../../data-model/ProductModel.js"
 function getProductsHandler(req, res) {
     
     const userDetails = req.userDetails
-    const categoryId = req.query.categoryId
-    const tagIds = req.query.tagIds
+    const body = req.body;
+    const filter = {};
 
-    const defaultQuery = { user_id: userDetails.id}
+    if(body.category) {
+        filter.category = body.category;
+    }
 
-    if (categoryId) {
-        defaultQuery.categoryId = categoryId
+    if(body.tags && body.tags.length > 0) {
+        filter.tags = { $in: body.tags }
     }
-    if (tagIds && tagIds.length > 0) {
-        defaultQuery.tagIds = { $all: tagIds }
+
+    if(body.searchKey && body.searchKey.trim().length > 0) {
+        filter.name = { $regex: body.searchKey, $options: 'i' };
     }
+
+    const defaultQuery = { user_id: userDetails.id, ...filter}
 
     Product.find(defaultQuery).exec()
             .then((products)=>{

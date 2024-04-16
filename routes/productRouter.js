@@ -9,11 +9,9 @@ const productRouter = express.Router()
 
 productRouter.use(authorize)
 
-productRouter.use(uploadFile)
-
-productRouter.post('/',createProductHandler)
-productRouter.get('/',getProductsHandler)
-productRouter.patch('/:productId',updateProductHandler)
+productRouter.post('/', uploadFile, createProductHandler)
+productRouter.post('/all', getProductsHandler)
+productRouter.patch('/:productId', updateProductHandler)
 
 
 

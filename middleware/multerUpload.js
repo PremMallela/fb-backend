@@ -1,21 +1,25 @@
 import multer from 'multer'
-import path from 'path'
+import path from 'path';
 
-const __uploadDir = path.join(path.resolve(),'./assets/uploads')
-console.log(__uploadDir)
+const __uploadDir = path.join(path.resolve(), './assets/uploads');
+console.log(__uploadDir);
 
-    const storage   = multer.diskStorage({     /*since you arent relying on the req/res cycle unlike authorize ,there is no need to call next for 
-                                                the control to move on to the subsequent middleware or req handlers*/
-    destination: (req,file,cb) => {
-        return cb(null,__uploadDir);
-    },
-    filename:(req,file,cb)=>{
-        return cb(null,Date.now()+ '-' + file.originalname)
-    }
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    return cb(null, __uploadDir);
+  },
+  filename: (req, file, cb) => {
+    return cb(null, Date.now()+process.env.SERVER_ID+getFileType(file.originalname));
   }
-)
+});
 
-const upload = multer({storage : storage})
-const uploadFile = upload.single('image')
+const upload = multer({ storage: storage });
+const uploadFile = upload.array('images');
 
-export default uploadFile
+function getFileType(filename) {
+    const lastDotIndex = filename.lastIndexOf('.');
+    const type = filename.substring(lastDotIndex);
+    return type;
+}
+
+export default uploadFile;
