@@ -8,9 +8,12 @@ import productRouter from "./routes/productRouter.js"
 import categoryRouter from "./routes/categoryRouter.js"
 import tagRouter from "./routes/tagRouter.js"
 import outletRouter from "./routes/oultetRouter.js"
-import path from  "path"
 
 import cors from 'cors';
+import { fileURLToPath } from 'url';
+import path, { dirname } from 'path';
+import fs from 'fs';
+import menuRouter from "./routes/menuRouter.js"
 
 
 mongoose.connect(process.env.DEV_DB,{
@@ -44,6 +47,24 @@ server.use('/products',productRouter)
 server.use('/categories',categoryRouter)
 server.use('/tags',tagRouter )
 server.use('/outlets',outletRouter)
+server.use('/menu',menuRouter);
+
+server.get('/images/:img',(req,res)=>{
+
+  const img = req.params.img;
+
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = dirname(__filename);
+
+  const imagePath = path.join(__dirname, 'assets', 'uploads', img);
+
+  if (fs.existsSync(imagePath)) {
+    res.sendFile(imagePath);
+  } else {
+    res.status(404).send('Image not found');
+  }
+
+})
 
 
 
