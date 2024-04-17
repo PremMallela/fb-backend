@@ -14,6 +14,7 @@ import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
 import fs from 'fs';
 import menuRouter from "./routes/menuRouter.js"
+import orderRouter from "./routes/orderRouter.js"
 
 
 mongoose.connect(process.env.DEV_DB,{
@@ -48,6 +49,7 @@ server.use('/categories',categoryRouter)
 server.use('/tags',tagRouter )
 server.use('/outlets',outletRouter)
 server.use('/menu',menuRouter);
+server.use('/orders',orderRouter);
 
 server.get('/images/:img',(req,res)=>{
 
