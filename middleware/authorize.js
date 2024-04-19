@@ -6,6 +6,7 @@ function authorize(req, res, next) {
 
     if(!token) {
         res.status(400).json({
+            loginError:true,
             error:{
                 message:"Token Not Present"
             }
@@ -20,6 +21,7 @@ function authorize(req, res, next) {
 
     } catch (error) {
         res.status(400).json({
+            loginError:true,
             error:{
                 message:error.message
             }

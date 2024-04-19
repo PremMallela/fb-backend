@@ -30,6 +30,9 @@ mongoose.connect(process.env.DEV_DB,{
           console.error(err)
         })
 
+
+const allowedOrigins = [process.env.PLATFORM, process.env.LANDING_PAGE];
+
 const server = express()
 
 server.use(express.json())
@@ -38,6 +41,13 @@ server.use(cookieParser())
 server.use('/assets/uploads',express.static(path.join(path.resolve(),'./assets/uploads')))
 server.use(cors({
   origin: process.env.ORIGIN,
+  origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, true);
+      } else {
+          callback(new Error('Not allowed by CORS'));
+      }
+  },
   credentials: true
 }));
 

@@ -13,7 +13,7 @@ function  getProductsNotInMenuHandler(req, res) {
                     Product.find({ _id:{ $nin: menu.products }, user_id:userDetails.id})
                         .then(products => {
                             res.status(200).json(
-                                products
+                                {products}
                             )
                         })
                         .catch(error => {
