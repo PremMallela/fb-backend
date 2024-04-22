@@ -158,6 +158,11 @@ server.get('/post/:id',(req,res)=>{
           }
       ]
   });
+
+  res.json({
+    post:'lk'
+  })
+
 })
 
 server.use('/auth',authRouter)
