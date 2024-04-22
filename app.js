@@ -55,7 +55,9 @@ server.get('/post/:id',(req,res)=>{
 
   const id = req.params.id;
 
-  if(id===1 || id===1) res.json({
+  console.log(id);
+
+  if(id==='1' || id===1) res.json({
       post:[
           {
               type:'text',
