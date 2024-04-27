@@ -1,4 +1,5 @@
 import mailer from "../../utils/mail.js";
+import 'dotenv/config'
 import { generateOTP, otpMap } from "../../utils/otp.js";
 
 function getOTPHandler(req,res) {
@@ -22,7 +23,7 @@ function getOTPHandler(req,res) {
 
     mailer.sendMail(mailOptions, function(error, info){
         if (error) {
-            res.status(400).send("Failed to send mail");
+            res.status(400).send(error);
             return;
         } else {
             otpMap.set(email,otp);
