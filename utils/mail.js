@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-
+import 'dotenv/config'
 var mailer = nodemailer.createTransport({
     service: 'gmail',
     auth: {

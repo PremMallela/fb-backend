@@ -6,7 +6,7 @@ function logoutHandler(req, res) {
 
     try{
 
-        res.clearCookie("token");
+        res.clearCookie("token",{expires: new Date(0)});
         res.status(200).send("User logged out");
 
     }catch(error){
