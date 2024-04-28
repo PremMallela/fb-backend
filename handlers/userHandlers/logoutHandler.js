@@ -6,12 +6,12 @@ function logoutHandler(req, res) {
 
     try{
 
-        res.clearCookie("token",{expires: new Date(0)});
+        res.cookie("token","", { maxAge : 1 ,httpOnly: true, sameSite: "none", secure: true });       
         res.status(200).send("User logged out");
-
-    }catch(error){
-        res.status(400).send("couldn't log out");
         return;
+    }
+    catch(error){
+        res.status(400).send("couldn't log out");
     }
 
 }
